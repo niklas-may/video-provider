@@ -8,22 +8,22 @@ class ObservableInstance {
     }
     return this.instance;
   }
-  subscribe(key, callback) {
-    if (!this.observer[key]) this.observer[key] = [];
+  subscribe(event, callback) {
+    if (!this.observer[event]) this.observer[event] = [];
 
-    this.observer[key].push(callback);
+    this.observer[event].push(callback);
   }
-  unsubscribe(key, callback) {
-    if (!this.observer[key]) return;
+  unsubscribe(event, callback) {
+    if (!this.observer[event]) return;
 
-    this.observer[key] = this.observer[key].filter(
+    this.observer[event] = this.observer[event].filter(
       (observer) => observer !== callback
     );
   }
-  broadcast(key, data) {
-    if (!this.observer[key]) return;
+  broadcast(event, data) {
+    if (!this.observer[event]) return;
 
-    this.observer[key].forEach((subscriber) => subscriber(data));
+    this.observer[event].forEach((callback) => callback(data));
   }
 }
 
@@ -79,16 +79,16 @@ export default class VideoProvider extends ObservableInstance {
   play() {
     this.videoEl.play();
   }
-  stop() {
+  pause() {
     this.videoEl.pause();
   }
-  tick() {
+  frame() {
     this.canvasCtx.drawImage(this.videoEl, 0, 0);
     this.broadcast("newFrame", this.canvasEl);
-    this.raf = requestAnimationFrame(() => this.tick());
+    this.raf = requestAnimationFrame(() => this.frame());
   }
   onPlay() {
-    this.raf = requestAnimationFrame(() => this.tick());
+    this.raf = requestAnimationFrame(() => this.frame());
   }
   onPause() {
     cancelAnimationFrame(this.raf);

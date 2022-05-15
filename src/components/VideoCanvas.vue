@@ -17,7 +17,9 @@ const video = VideoProvider.getInstance();
 video.subscribe("loadedmetadata", onLoad);
 video.subscribe("newFrame", onNewFrame);
 
-onMounted(() => (context = canvas.value.getContext("2d", { alpha: false })));
+onMounted(() => {
+  context = canvas.value.getContext("2d", { alpha: false });
+});
 onUnmounted(() => {
   video.unsubscribe("loadedmetadata", onLoad);
   video.unsubscribe("newFrame", onNewFrame);

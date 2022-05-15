@@ -9,9 +9,33 @@ video.load("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4");
   <div>
     <div class="controls">
       <button @click="video.play">play</button>
-      <button @click="video.stop">stop</button>
+      <button @click="video.pause">pause</button>
     </div>
     <div class="canvas-grid">
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
       <VideoCanvasVue />
       <VideoCanvasVue />
       <VideoCanvasVue />
