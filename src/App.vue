@@ -24,6 +24,18 @@ video.load("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4");
       <VideoCanvasVue />
       <VideoCanvasVue />
       <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
     </div>
   </div>
 </template>
@@ -44,7 +56,7 @@ body {
   flex-wrap: wrap;
 }
 .canvas-grid .canvas-wrapper {
-  width: 50%;
+  width: 25%;
 }
 
 .controls {

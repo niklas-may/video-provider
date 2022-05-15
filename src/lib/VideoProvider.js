@@ -28,47 +28,63 @@ class ObservableInstance {
 }
 
 export default class VideoProvider extends ObservableInstance {
-  element;
+  videoEl;
+  canvasEl;
+  context;
   raf;
 
   constructor() {
     super();
     this.initVideo();
+    this.initBuffer();
   }
   initVideo() {
-    this.element = document.createElement("video");
+    this.videoEl = document.createElement("video");
 
-    this.element.setAttribute("loop", "");
-    this.element.setAttribute("playsinline", "");
-    this.element.setAttribute("preload", "metadata");
+    this.videoEl.setAttribute("loop", "");
+    this.videoEl.setAttribute("playsinline", "");
+    this.videoEl.setAttribute("preload", "metadata");
 
-    this.element.style.maxWidth = "100%";
-    this.element.style.position = "fixed";
-    this.element.style.transform = "translateX(100vw)";
-    this.element.style.display = "none";
+    this.videoEl.style.maxWidth = "100%";
+    this.videoEl.style.width = "100%";
+    this.videoEl.style.position = "fixed";
+    this.videoEl.style.transform = "translateX(100vw)";
+    this.videoEl.style.display = "none";
 
-    const body = document.querySelector("body");
-    body.appendChild(this.element);
+    document.querySelector("body").appendChild(this.videoEl);
 
-    this.element.addEventListener("play", this.onPlay.bind(this));
-    this.element.addEventListener("pause", this.onPause.bind(this));
-    this.element.addEventListener(
+    this.videoEl.addEventListener("play", this.onPlay.bind(this));
+    this.videoEl.addEventListener("pause", this.onPause.bind(this));
+    this.videoEl.addEventListener(
       "loadedmetadata",
       this.onLoadedmetadata.bind(this)
     );
   }
+  initBuffer() {
+    this.canvasEl = document.createElement("canvas");
+
+    this.canvasEl.style.maxWidth = "100%";
+    this.canvasEl.style.width = "100%";
+    this.canvasEl.style.position = "fixed";
+    this.canvasEl.style.transform = "translateX(100vw)";
+    this.canvasEl.style.display = "none";
+
+    document.querySelector("body").appendChild(this.canvasEl);
+    this.context = this.canvasEl.getContext("2d", { alpha: false });
+  }
   load(src) {
-    this.element.setAttribute("src", src);
-    this.element.load();
+    this.videoEl.setAttribute("src", src);
+    this.videoEl.load();
   }
   play() {
-    this.element.play();
+    this.videoEl.play();
   }
   stop() {
-    this.element.pause();
+    this.videoEl.pause();
   }
   tick() {
-    this.broadcast("newFrame", this.element);
+    this.context.drawImage(this.videoEl, 0, 0);
+    this.broadcast("newFrame", this.canvasEl);
     this.raf = requestAnimationFrame(() => this.tick());
   }
   onPlay() {
@@ -78,9 +94,13 @@ export default class VideoProvider extends ObservableInstance {
     cancelAnimationFrame(this.raf);
   }
   onLoadedmetadata() {
-    this.broadcast("loadedmetadata", {
-      videoWidth: this.element.videoWidth,
-      videoHeight: this.element.videoHeight,
-    });
+    const meta = {
+      videoWidth: this.videoEl.videoWidth,
+      videoHeight: this.videoEl.videoHeight,
+    };
+
+    this.canvasEl.setAttribute("width", meta.videoWidth);
+    this.canvasEl.setAttribute("height", meta.videoHeight);
+    this.broadcast("loadedmetadata", meta);
   }
 }

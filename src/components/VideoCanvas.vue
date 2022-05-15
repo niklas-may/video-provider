@@ -9,8 +9,8 @@ const onLoad = ({ videoWidth, videoHeight }) => {
   canvas.value.setAttribute("width", videoWidth);
   canvas.value.setAttribute("height", videoHeight);
 };
-const onNewFrame = (video) => {
-  context.drawImage(video, 0, 0);
+const onNewFrame = (frame) => {
+  context.drawImage(frame, 0, 0);
 };
 
 const video = VideoProvider.getInstance();
