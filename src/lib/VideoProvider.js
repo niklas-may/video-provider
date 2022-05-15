@@ -30,15 +30,15 @@ class ObservableInstance {
 export default class VideoProvider extends ObservableInstance {
   videoEl;
   canvasEl;
-  context;
+  canvasCtx;
   raf;
 
   constructor() {
     super();
-    this.initVideo();
-    this.initBuffer();
+    this.initVideoEl();
+    this.initCanvasEl();
   }
-  initVideo() {
+  initVideoEl() {
     this.videoEl = document.createElement("video");
 
     this.videoEl.setAttribute("loop", "");
@@ -60,7 +60,7 @@ export default class VideoProvider extends ObservableInstance {
       this.onLoadedmetadata.bind(this)
     );
   }
-  initBuffer() {
+  initCanvasEl() {
     this.canvasEl = document.createElement("canvas");
 
     this.canvasEl.style.maxWidth = "100%";
@@ -70,7 +70,7 @@ export default class VideoProvider extends ObservableInstance {
     this.canvasEl.style.display = "none";
 
     document.querySelector("body").appendChild(this.canvasEl);
-    this.context = this.canvasEl.getContext("2d", { alpha: false });
+    this.canvasCtx = this.canvasEl.getContext("2d", { alpha: false });
   }
   load(src) {
     this.videoEl.setAttribute("src", src);
@@ -83,7 +83,7 @@ export default class VideoProvider extends ObservableInstance {
     this.videoEl.pause();
   }
   tick() {
-    this.context.drawImage(this.videoEl, 0, 0);
+    this.canvasCtx.drawImage(this.videoEl, 0, 0);
     this.broadcast("newFrame", this.canvasEl);
     this.raf = requestAnimationFrame(() => this.tick());
   }
