@@ -50,6 +50,7 @@ export default class VideoProvider extends ObservableInstance {
     this.videoEl.style.position = "fixed";
     this.videoEl.style.transform = "translateX(100vw)";
     this.videoEl.style.display = "none";
+    this.videoEl.muted = true;
 
     document.querySelector("body").appendChild(this.videoEl);
 

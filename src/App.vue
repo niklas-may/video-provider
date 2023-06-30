@@ -60,6 +60,22 @@ video.load("http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4");
       <VideoCanvasVue />
       <VideoCanvasVue />
       <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
+      <VideoCanvasVue />
     </div>
   </div>
 </template>
